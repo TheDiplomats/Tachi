@@ -59,3 +59,18 @@ end
   sleep 0.7
 end
 print "".mv_down 3
+
+
+(1..10).each do |percent|
+  print "#{percent*10}% complete\r"
+  sleep(0.5)
+  print  ("\e[K") # Delete current line
+end
+puts "Done!"
+
+
+(1..5).to_a.reverse.each do |c|
+  print "I'll exit after #{c} second".cls_upline
+  sleep 1
+end
+puts
