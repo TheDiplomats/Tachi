@@ -1,10 +1,11 @@
 #!usr/bin/env ruby
 # Developed by Surfs Up
 
+#TODO Create a custom join to get the first 4 from array then join and remove first 4 items in array or create copy
+
 class Network_String
 
 def initailize() super initailize() end
-
 @@regex = Hash[
 'mac' => /(?:[0-9A-F][0-9A-F][:\-]){5}[0-9A-F][0-9A-F]/i,
 'ipv4' => /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/,
@@ -12,14 +13,19 @@ def initailize() super initailize() end
 ]
 
 def find_network_string(string)
+	results = Array.new
     if get_network_string('ipv4', string)
-      string.scan(@@regex['ipv4'])
+      results.append(string.scan(@@regex['ipv4']).join('.'))
+      return results
     elsif get_network_string('ipv6', string)
-      string.scan(@@regex['ipv6'])
+      results.append(string.scan(@@regex['ipv6']).join('.'))
+      return results
     elsif get_network_string('mac', string)
-      string.scan(@@regex['mac'])
+      results.append(string.scan(@@regex['mac']).join(':'))
+      return results
     else
-      ''
+	  results.append(string)
+      return results
     end
 end
 
@@ -31,15 +37,19 @@ def get_network_string(selection, search_string)
     return !search_string.scan(@@regex['ipv4']).nil?
   when 'ipv6'
     return !search_string.scan(@@regex['ipv6']).nil?
+  else
+	return false
   end
-  false
 end
 
 end
 
-ip = 'ads fs:ad fa:fs:fe: Wind10.0.4.5ows 11192.168.0.15dsfsad fas fa1 20.555.1.700 f2'
-mac = 'ads fs:ad fa:fs:fe: Wind00-0C-29-38-1D-61ows 1100:50:7F:E6:96:20dsfsad fas fa1 3c:77:e6:68:66:e9 f2'
+#ip = 'ads fs:ad fa:fs:fe: Wind10.0.4.5ows 11192.168.0.15dsfsad fas fa1 20.555.1.700 f2'
+#mac = 'ads fs:ad fa:fs:fe: Wind00-0C-29-38-1D-61ows 1100:50:7F:E6:96:20dsfsad fas fa1 3c:77:e6:68:66:e9 f2'
+#foo = 'bar'
 
+ip = "bar 100.10.100.10 foo"
 check = Network_String.new()
 print check.find_network_string(ip)
-print check.find_network_string(mac)
+#print check.find_network_string(mac)
+#print check.find_network_string(foo)
