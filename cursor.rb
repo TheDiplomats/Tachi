@@ -3,19 +3,19 @@
 # Level 1
 
 class String
-  def mv_up(n=1)
+  def mv_up(n = 1)
     cursor(self, "\033[#{n}A")
   end
-  
-  def mv_down(n=1)
+
+  def mv_down(n = 1)
     cursor(self, "\033[#{n}B")
   end
 
-  def mv_fw(n=1)
+  def mv_fw(n = 1)
     cursor(self, "\033[#{n}C")
   end
 
-  def mv_bw(n=1)
+  def mv_bw(n = 1)
     cursor(self, "\033[#{n}D")
   end
 
@@ -46,28 +46,26 @@ end
   sleep 0.7
   # Level 2
   ('a'..'c').map do |char|
-      print "Characters: #{char}".mv_down
-      sleep 0.5
-      # Level 3
-      ('A'..'C').map do |char1|
-          print "Capital: #{char1}".mv_down
-          sleep 0.2
-          print "".mv_up
-      end
-      print "".mv_up
+    print "Characters: #{char}".mv_down
+    sleep 0.5
+    # Level 3
+    ('A'..'C').map do |char1|
+      print "Capital: #{char1}".mv_down
+      sleep 0.2
+      print ''.mv_up
+    end
+    print ''.mv_up
   end
   sleep 0.7
 end
-print "".mv_down 3
-
+print ''.mv_down 3
 
 (1..10).each do |percent|
-  print "#{percent*10}% complete\r"
+  print "#{percent * 10}% complete\r"
   sleep(0.5)
-  print  ("\e[K") # Delete current line
+  print "\e[K" # Delete current line
 end
-puts "Done!"
-
+puts 'Done!'
 
 (1..5).to_a.reverse.each do |c|
   print "I'll exit after #{c} second".cls_upline
